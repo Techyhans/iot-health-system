@@ -43,10 +43,33 @@ class Database():
 
 
     def get_all_sensor_values(self):
-        self.get_db()
-        return {
-            "data": "db"
-        }
+        try:
+            print("[INFO] Retriving values to Database...")
+            conn = self.get_db()
+            cur = conn.cursor()
+            sql = '''SELECT * FROM sensors'''
+            cur.execute(sql)
+            rows = cur.fetchall()
+
+            temp = []
+            for row in rows:
+                js = {
+                    "timestamp": row[0],
+                    "bodyTemp": row[1],
+                    "roomTemp": row[2],
+                    "ecgData": row[3],
+                }
+                temp.append(js)
+            return {
+                "data": temp
+            }
+        except Error as e:
+            print(f"[ERROR] Inserting values to Database: {e}")
+            return {
+                "success": False,
+                "error": e
+            }
+
 
     def create_tables(self):
         print("[INFO] Creating Tables...")
