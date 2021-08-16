@@ -2,6 +2,8 @@ from flask import Flask, request
 from flask_restplus import Resource, Api, reqparse, abort
 from database.config import Database
 
+from werkzeug.utils import cached_property
+
 app = Flask(__name__)
 api = Api(app)
 db = Database()
@@ -33,19 +35,7 @@ class SensorsController(Resource):
             abort(404, error="Database Error. Please contact Admin")
 
 
-class Sensors(Resource):
-    def get(self):
-        return {"data": sensorData}
-
-    def post(self):
-        parser.add_argument('data', type=int, help='Rate to charge for this resource')
-        args = parser.parse_args(strict=True)
-        print(args)
-        return {"data": "Posted"}
-
-
-api.add_resource(Sensors, "/sensors")
-api.add_resource(SensorsController, "/ctl")
+api.add_resource(SensorsController, "/sensors")
 
 if __name__ == '__main__':
     db.create_tables()

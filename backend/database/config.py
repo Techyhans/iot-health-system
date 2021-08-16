@@ -1,5 +1,6 @@
 import sqlite3
 from sqlite3 import Error
+from datetime import datetime
 
 
 class Database():
@@ -19,8 +20,11 @@ class Database():
             print("[INFO] Inserting values to Database...")
             conn = self.get_db()
             cur = conn.cursor()
-            sql = '''INSERT INTO projects(name,begin_date,end_date) VALUES (?,?,?)'''
-            cur.execute(sql)
+            now = datetime.now()
+            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+            sql = '''INSERT INTO sensors(timestamp, bodyTemp, roomTemp, ecgData) VALUES (?,?,?,?)'''
+            values = (dt_string, body_temp, room_temp, ecg_data)
+            cur.execute(sql, values)
             conn.commit()
             return {
                 "success": True,
@@ -33,7 +37,8 @@ class Database():
         except Error as e:
             print(f"[ERROR] Inserting values to Database: {e}")
             return {
-                "success": False
+                "success": False,
+                "error": e
             }
 
 
