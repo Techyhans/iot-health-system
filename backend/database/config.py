@@ -3,7 +3,7 @@ from sqlite3 import Error
 from datetime import datetime
 
 
-class Database():
+class Database:
     def __init__(self):
         self.DATABASE_NAME = "health.db"
 
@@ -41,7 +41,6 @@ class Database():
                 "error": e
             }
 
-
     def get_all_sensor_values(self):
         try:
             print("[INFO] Retriving values to Database...")
@@ -51,7 +50,7 @@ class Database():
             cur.execute(sql)
             rows = cur.fetchall()
 
-            temp = []
+            data_to_return = []
             for row in rows:
                 js = {
                     "timestamp": row[0],
@@ -59,10 +58,8 @@ class Database():
                     "roomTemp": row[2],
                     "ecgData": row[3],
                 }
-                temp.append(js)
-            return {
-                "data": temp
-            }
+                data_to_return.append(js)
+            return data_to_return
         except Error as e:
             print(f"[ERROR] Inserting values to Database: {e}")
             return {
@@ -70,6 +67,29 @@ class Database():
                 "error": e
             }
 
+    def get_latest_entry(self):
+        try:
+            print("[INFO] Retriving values to Database...")
+            conn = self.get_db()
+            cur = conn.cursor()
+            sql = '''SELECT * FROM sensors'''
+            cur.execute(sql)
+            row = cur.fetchone()
+
+            data_to_return = js = {
+                "timestamp": row[0],
+                "bodyTemp": row[1],
+                "roomTemp": row[2],
+                "ecgData": row[3],
+            }
+
+            return data_to_return
+        except Error as e:
+            print(f"[ERROR] Inserting values to Database: {e}")
+            return {
+                "success": False,
+                "error": e
+            }
 
     def create_tables(self):
         print("[INFO] Creating Tables...")
