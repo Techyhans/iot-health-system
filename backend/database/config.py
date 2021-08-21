@@ -76,11 +76,11 @@ class Database:
             cur.execute(sql)
             row = cur.fetchone()
 
-            data_to_return = js = {
-                "timestamp": row[0],
-                "bodyTemp": row[1],
-                "roomTemp": row[2],
-                "ecgData": row[3],
+            data_to_return = {
+                "timestamp": row[1],
+                "bodyTemp": row[2],
+                "roomTemp": row[3],
+                "ecgData": row[4],
             }
 
             return data_to_return
