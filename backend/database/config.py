@@ -53,10 +53,10 @@ class Database:
             data_to_return = []
             for row in rows:
                 js = {
-                    "timestamp": row[0],
-                    "bodyTemp": row[1],
-                    "roomTemp": row[2],
-                    "ecgData": row[3],
+                    "timestamp": row[1],
+                    "bodyTemp": row[2],
+                    "roomTemp": row[3],
+                    "ecgData": row[4],
                 }
                 data_to_return.append(js)
             return data_to_return
