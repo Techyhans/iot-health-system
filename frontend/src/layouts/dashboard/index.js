@@ -11,6 +11,7 @@ function Dashboard () {
         setInterval(() => {
             Promise.all([getLatestDataAPI()])
               .then((results) => {
+                  console.log('Data from Server', results)
                   setSensorValue(results[0].data)
               }).catch((error) => {
                   console.log('Error Getting Latest Data', error)
