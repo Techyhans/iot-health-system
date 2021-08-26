@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from sqlite3 import Error
 from datetime import datetime
@@ -72,7 +73,7 @@ class Database:
             print("[INFO] Retriving values to Database...")
             conn = self.get_db()
             cur = conn.cursor()
-            sql = '''SELECT * FROM sensors ORDER BY timestamp DESC LIMIT 1'''
+            sql = '''SELECT * FROM sensors ORDER BY id DESC LIMIT 1'''
             cur.execute(sql)
             row = cur.fetchone()
 
@@ -92,6 +93,7 @@ class Database:
             }
 
     def create_tables(self):
+        print("[INFO] Removing Existing Tables...")
         print("[INFO] Creating Tables...")
         tables = [
             """CREATE TABLE IF NOT EXISTS sensors(id INTEGER PRIMARY KEY AUTOINCREMENT, timestamp TEXT NOT NULL, 
@@ -99,5 +101,9 @@ class Database:
         ]
         db = self.get_db()
         cursor = db.cursor()
+        try:
+            cursor.execute("DROP TABLE sensors")
+        except:
+            pass
         for table in tables:
             cursor.execute(table)
