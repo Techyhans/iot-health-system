@@ -72,7 +72,7 @@ class Database:
             print("[INFO] Retriving values to Database...")
             conn = self.get_db()
             cur = conn.cursor()
-            sql = '''SELECT * FROM sensors'''
+            sql = '''SELECT * FROM sensors ORDER BY timestamp DESC LIMIT 1'''
             cur.execute(sql)
             row = cur.fetchone()
 
