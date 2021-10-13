@@ -95,15 +95,15 @@ class Database:
     def create_tables(self):
         print("[INFO] Removing Existing Tables...")
         print("[INFO] Creating Tables...")
-        tables = [
-            """CREATE TABLE IF NOT EXISTS sensors(id INTEGER PRIMARY KEY AUTOINCREMENT, timestamp TEXT NOT NULL, 
-            bodyTemp REAL NOT NULL, roomTemp REAL NOT NULL, ecgData REAL NOT NULL)"""
-        ]
-        db = self.get_db()
-        cursor = db.cursor()
-        try:
-            cursor.execute("DROP TABLE sensors")
-        except:
-            pass
-        for table in tables:
-            cursor.execute(table)
+        # tables = [
+        #     """CREATE TABLE IF NOT EXISTS sensors(id INTEGER PRIMARY KEY AUTOINCREMENT, timestamp TEXT NOT NULL,
+        #     bodyTemp REAL NOT NULL, roomTemp REAL NOT NULL, ecgData REAL NOT NULL)"""
+        # ]
+        # db = self.get_db()
+        # cursor = db.cursor()
+        # try:
+        #     cursor.execute("DROP TABLE sensors")
+        # except:
+        #     pass
+        # for table in tables:
+        #     cursor.execute(table)
