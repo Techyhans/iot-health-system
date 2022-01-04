@@ -3,7 +3,28 @@ import { Form, Input, Button, Checkbox } from 'antd';
 export const BloodPressure = () => {
 
     const onFinish = (values) => {
-        console.log('Success:', values);
+        values['diabp'] = Math.round(73 + Math.random() * (120 - 73));
+        values['sysbp'] = Math.round(105 + Math.random() * (147 - 105));
+        values['heartrate'] = 1;
+        values['age'] = Math.round(values['age']);
+        values['sex'] = Math.round(values['sex']);
+        values['height'] = parseFloat(values['height']);
+        values['weight'] = parseFloat(values['weight']);
+        values['bmi'] = parseFloat(values['bmi']);
+
+        let data_to_submit = {
+            "instances": [[ values['age'], values['sex'], values['sysbp'], values['diabp'], values['heartrate'], values['weight'], values['height'], values['bmi'] ]]
+        }
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data_to_submit)
+        };
+        fetch('http://3.1.121.248:8501/v1/models/half_plus_two:predict', requestOptions)
+            .then(response => response.json())
+            .then(data => console.log('done', data))
+            .catch(error => alert('error', error));
     };
 
     const onFinishFailed = (errorInfo) => {
