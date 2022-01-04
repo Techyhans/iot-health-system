@@ -9,13 +9,17 @@ import {
 } from '@ant-design/icons';
 
 import './navbar.css'
-import {Outlet} from "react-router-dom";
+import {
+    useNavigate, Outlet,
+} from 'react-router-dom';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 function Navbar () {
     const [collapsed, setCollapsed] = useState(false)
+
+    const navigate = useNavigate()
 
     function onCollapse () {
         setCollapsed(!collapsed)
@@ -26,23 +30,11 @@ function Navbar () {
         <Sider collapsible collapsed={collapsed} onCollapse={() => onCollapse()}>
           <div className="logo" />
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-            <Menu.Item key="1" icon={<PieChartOutlined />}>
-              Option 1
+            <Menu.Item key="1" icon={<PieChartOutlined />} onClick={() => {window.location.href = '/dashboard'}}>
+              Dashboard
             </Menu.Item>
-            <Menu.Item key="2" icon={<DesktopOutlined />}>
-              Option 2
-            </Menu.Item>
-            <SubMenu key="sub1" icon={<UserOutlined />} title="User">
-              <Menu.Item key="3">Tom</Menu.Item>
-              <Menu.Item key="4">Bill</Menu.Item>
-              <Menu.Item key="5">Alex</Menu.Item>
-            </SubMenu>
-            <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
-              <Menu.Item key="6">Team 1</Menu.Item>
-              <Menu.Item key="8">Team 2</Menu.Item>
-            </SubMenu>
-            <Menu.Item key="9" icon={<FileOutlined />}>
-              Files
+            <Menu.Item key="2" icon={<DesktopOutlined />} onClick={() => {window.location.href = '/blood-pressure'}}>
+              Blood Pressure
             </Menu.Item>
           </Menu>
         </Sider>
