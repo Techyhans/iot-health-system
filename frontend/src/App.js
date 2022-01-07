@@ -9,8 +9,9 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Navbar/>}>
-                    <Route path="dashboard" element={<Dashboard/>}/>
+                    <Route path="/dashboard" element={<Dashboard/>}/>
                     <Route path={"/blood-pressure"} element={<BloodPressure/>}/>
+                    <Route path={"/"} element={<Dashboard/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>

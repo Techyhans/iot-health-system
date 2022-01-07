@@ -30,10 +30,10 @@ function Navbar () {
         <Sider collapsible collapsed={collapsed} onCollapse={() => onCollapse()}>
           <div className="logo" />
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-            <Menu.Item key="1" icon={<PieChartOutlined />} onClick={() => {window.location.href = '/dashboard'}}>
+            <Menu.Item key="1" icon={<PieChartOutlined />} onClick={() => {navigate('/dashboard')}}>
               Dashboard
             </Menu.Item>
-            <Menu.Item key="2" icon={<DesktopOutlined />} onClick={() => {window.location.href = '/blood-pressure'}}>
+            <Menu.Item key="2" icon={<DesktopOutlined />} onClick={() => {navigate('/blood-pressure')}}>
               Blood Pressure
             </Menu.Item>
           </Menu>

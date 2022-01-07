@@ -18,12 +18,16 @@ export const BloodPressure = () => {
 
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'text/plain'
+            },
             body: JSON.stringify(data_to_submit)
         };
-        fetch('http://3.1.121.248:8501/v1/models/half_plus_two:predict', requestOptions)
+        fetch('http://3.1.121.248:80/v1/models/half_plus_two:predict', requestOptions)
             .then(response => response.json())
-            .then(data => console.log('done', data))
+            .then(data => {
+                alert("Result is " + data['predictions'][0][0])
+            })
             .catch(error => alert('error', error));
     };
 
