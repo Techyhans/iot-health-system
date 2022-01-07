@@ -1,6 +1,9 @@
 import { Form, Input, Button, Checkbox } from 'antd';
+import {useState} from "react";
 
 export const BloodPressure = () => {
+
+    const [text, setText] = useState('');
 
     const onFinish = (values) => {
         values['diabp'] = Math.round(73 + Math.random() * (120 - 73));
@@ -26,7 +29,7 @@ export const BloodPressure = () => {
         fetch('http://3.1.121.248:80/v1/models/half_plus_two:predict', requestOptions)
             .then(response => response.json())
             .then(data => {
-                alert("Result is " + data['predictions'][0][0])
+                parseFloat(data['predictions'][0][0]) > 0.5 ? setText("You are healthy") : setText("Need Further Analysis")
             })
             .catch(error => alert('error', error));
     };
@@ -90,6 +93,11 @@ export const BloodPressure = () => {
                     Submit
                 </Button>
             </Form.Item>
+            {
+                text !== '' && (
+                    <h1>Result: {text}</h1>
+                )
+            }
         </Form>
     )
 }
