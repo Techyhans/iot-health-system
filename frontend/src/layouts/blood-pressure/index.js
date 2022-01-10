@@ -1,9 +1,11 @@
 import { Form, Input, Button, Checkbox } from 'antd';
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 export const BloodPressure = () => {
 
     const [text, setText] = useState('');
+    const navigation = useNavigate()
 
     const onFinish = (values) => {
         values['diabp'] = Math.round(73 + Math.random() * (120 - 73));
@@ -29,7 +31,7 @@ export const BloodPressure = () => {
         fetch('http://3.1.121.248:80/v1/models/half_plus_two:predict', requestOptions)
             .then(response => response.json())
             .then(data => {
-                parseFloat(data['predictions'][0][0]) > 0.5 ? setText("You are healthy") : setText("Need Further Analysis")
+                parseFloat(data['predictions'][0][0]) < 0.5 ? setText("You are healthy") : setText("Need Further Analysis")
             })
             .catch(error => alert('error', error));
     };
@@ -97,6 +99,9 @@ export const BloodPressure = () => {
                 text !== '' && (
                     <h1>Result: {text}</h1>
                 )
+            }
+            {
+                text === "Need Further Analysis" && <Button onClick={() => navigation('/ecg-analysis')}>ECG Check</Button>
             }
         </Form>
     )
