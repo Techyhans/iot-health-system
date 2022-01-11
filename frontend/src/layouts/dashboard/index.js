@@ -30,7 +30,7 @@ function Dashboard () {
                     <StatusCard title={'Room Temperature'} value={sensorValue['roomTemp']} unit={'Celsius'} />
                 </Col>
                 <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-                    <StatusCard title={'Ecg Data'} value={sensorValue['ecgData']} unit={''} />
+                    <StatusCard title={'Ecg Data (QRT)'} value={sensorValue['ecgData']} unit={''} />
                 </Col>
             </Row>
             <Row>
